@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-element',
@@ -6,6 +6,9 @@ import { Component, input, Input } from '@angular/core';
   imports: [],
   templateUrl: './dashboard-element.component.html',
   styleUrl: './dashboard-element.component.css',
+  // host:{
+  //   class: 'dashboard-elemento',
+  // }
 })
 export class DashboardElementComponent {
   // @Input({ required: true }) image!: {
