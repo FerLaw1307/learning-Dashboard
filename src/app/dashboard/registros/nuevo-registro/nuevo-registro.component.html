@@ -1,9 +1,9 @@
-<form>
+<form (ngSubmit)="onSubmit(tituloIngresado, pedidoIngresado)">
     <app-control label="Título">
-        <input name="titulo" id="titulo" >
+        <input name="titulo" id="titulo" #tituloIngresado>
     </app-control>
     <app-control label="Pedido">
-        <textarea name="pedido" id="pedido" row="3"></textarea>
+        <textarea name="pedido" id="pedido" row="3" #pedidoIngresado></textarea>
     </app-control>
     <p>
         <button appButton>
