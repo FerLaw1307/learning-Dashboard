@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit(tituloIngresado, pedidoIngresado)">
+<form (ngSubmit)="onSubmit(tituloIngresado.value, pedidoIngresado.value)">
     <app-control label="Título">
         <input name="titulo" id="titulo" #tituloIngresado>
     </app-control>
