@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-estado-servidor',
@@ -7,12 +7,14 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
   templateUrl: './estado-servidor.component.html',
   styleUrl: './estado-servidor.component.css',
 })
-export class EstadoServidorComponent implements OnInit, OnChanges {
+export class EstadoServidorComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   estadoActual: 'online' | 'offline' | 'unknow' = 'online';
+  private intervalo?: ReturnType<typeof setInterval>;
   //hooks de ciclo de vida.
 
   ngOnInit() {
-    setInterval(() => {
+    console.log('On INIT');
+    this.intervalo = setInterval(() => {
       const rnd = Math.random();
       if (rnd > 0.5) {
         this.estadoActual = 'online';
@@ -25,6 +27,12 @@ export class EstadoServidorComponent implements OnInit, OnChanges {
   }
 
   constructor() {}
+  ngOnDestroy(): void {
+    clearTimeout(this.intervalo);
+  }
+  ngAfterViewInit(): void {
+    console.log('AFTER VIEW INIT.');
+  }
   ngOnChanges(changes: SimpleChanges): void {
     throw new Error('Method not implemented.');
   }
