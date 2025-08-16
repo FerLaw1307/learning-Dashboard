@@ -1,3 +1,13 @@
+<div>
+  <ul>
+    @for(registro of registros; track registro.id) {
+    <li><app-registro [info]='registro' (cerrado)="onCloseRecord(registro.id)" /> - first {{ $first }} last {{$last}} odd {{$odd}} even {{$even}} count {{$count}}</li>
+    }@empty{
+    <p>No hay ni madres!</p>
+    }
+  </ul>
+</div>
+<hr />
 <div id="nuevo-registro">
-  <app-nuevo-registro />
+  <app-nuevo-registro (agregar)="onAddRecord($event)" />
 </div>
