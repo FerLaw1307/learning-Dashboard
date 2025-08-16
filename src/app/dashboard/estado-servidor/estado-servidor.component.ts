@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, effect, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-estado-servidor',
@@ -8,7 +8,7 @@ import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges }
   styleUrl: './estado-servidor.component.css',
 })
 export class EstadoServidorComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
-  estadoActual: 'online' | 'offline' | 'unknow' = 'online';
+  estadoActual = signal<'online' | 'offline' | 'unknow'>('offline');
   private intervalo?: ReturnType<typeof setInterval>;
   //hooks de ciclo de vida.
 
@@ -17,16 +17,20 @@ export class EstadoServidorComponent implements OnInit, OnChanges, AfterViewInit
     this.intervalo = setInterval(() => {
       const rnd = Math.random();
       if (rnd > 0.5) {
-        this.estadoActual = 'online';
+        this.estadoActual.set('online');
       } else if (rnd > 0.1) {
-        this.estadoActual = 'offline';
+        this.estadoActual.set('offline');
       } else {
-        this.estadoActual = 'unknow';
+        this.estadoActual.set('unknow');
       }
     }, 3000);
   }
 
-  constructor() {}
+  constructor() {
+    effect(() => {//subscripion al signal. funcion muy importante cuando los valores del signal cambian.
+      console.log(this.estadoActual());
+    });
+  }
   ngOnDestroy(): void {
     clearTimeout(this.intervalo);
   }
