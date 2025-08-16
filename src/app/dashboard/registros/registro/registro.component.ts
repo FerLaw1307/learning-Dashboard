@@ -9,6 +9,7 @@ import { Registro } from '../registro.model';
   styleUrl: './registro.component.css',
 })
 export class RegistroComponent {
+  
   info = input.required<Registro>();
   detallesVisibles = signal(false);
   cerrado = output();
